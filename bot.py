@@ -20,6 +20,6 @@ def ask_mt5(message):
 @bot.message_handler(func=lambda message: message.text.isdigit())
 def send_link(message):
     bot.send_message(message.chat.id,
-                     "Access Approved ✅\nHere is your private channel link:\nhttps://t.me/YOUR_PRIVATE_CHANNEL")
+                     "Access Approved ✅\nHere is your private channel link:\nhttps://t.me/+o6jbl-th1I1jOWM1")
 
 bot.polling()

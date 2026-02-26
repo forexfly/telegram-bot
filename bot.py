@@ -1,18 +1,20 @@
 import os
 import telebot
+from telebot import types
 
 TOKEN = os.environ.get("BOT_TOKEN")
 bot = telebot.TeleBot(TOKEN)
 
-# ✅ ONLY ACTIVE EMAIL
+# ✅ ACTIVE EMAILS LIST
 ACTIVE_EMAILS = [
-    "adnanbinfurquan7@gmail.com"
+    "adnanbinfurquan7@gmail.com",
+    "96farhanali@gmail.com"
 ]
 
 # START COMMAND
 @bot.message_handler(commands=['start'])
 def start(message):
-    markup = telebot.types.ReplyKeyboardMarkup(resize_keyboard=True)
+    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
     markup.add("Yes ✅", "No ❌")
     bot.send_message(
         message.chat.id,
@@ -39,17 +41,24 @@ def send_referral(message):
         "After opening your account, type /start again."
     )
 
-# EMAIL VERIFICATION SYSTEM
+# EMAIL VERIFICATION
 @bot.message_handler(func=lambda message: "@" in message.text and "." in message.text)
 def check_email(message):
     email = message.text.strip().lower()
 
     if email in ACTIVE_EMAILS:
+        markup = types.InlineKeyboardMarkup()
+        join_button = types.InlineKeyboardButton(
+            "🔒 Click Here to Join Private Channel",
+            url="https://t.me/+o6jbl-th1I1jOWM1"
+        )
+        markup.add(join_button)
+
         bot.send_message(
             message.chat.id,
             "✅ Account Verified Successfully!\n\n"
-            "Here is your private channel access link 👇\n"
-            "https://t.me/+o6jbl-th1I1jOWM1"
+            "Click the button below to request access to the private channel:",
+            reply_markup=markup
         )
     else:
         bot.send_message(
